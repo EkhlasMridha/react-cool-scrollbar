@@ -1,7 +1,7 @@
 import { MouseEvent, RefObject, useEffect, useRef } from "react";
-import type { PrettyScrollerProps } from "./scroller.types";
+import type { SwiftScrollerProps } from "./scroller.types";
 
-import "./pretty-style.scss";
+import "./swift-style.scss";
 
 const MINIMUM_THUMB_HEIGHT = 20;
 
@@ -11,16 +11,17 @@ interface ThumbDragState {
   isDragging?: boolean;
 }
 
-export const PrettyScroller = ({
+export const SwiftScroller = ({
   children,
   className,
+  scrollerWidth = 10,
   ...restProps
-}: PrettyScrollerProps) => {
+}: SwiftScrollerProps) => {
   const scrollHostRef = useRef<HTMLDivElement>(null);
   const scrollerThumbRef = useRef<HTMLDivElement>(null);
   const thumbDragState = useRef<ThumbDragState>({});
 
-  const scrollerClassNames = ["pretty-scrollbar-container", className];
+  const scrollerClassNames = ["swift-scrollbar-container", className];
 
   useEffect(() => {
     if (!scrollHostRef.current) return;
@@ -131,14 +132,18 @@ export const PrettyScroller = ({
   }, [handleThumbMouseMove, handleThumbMouseUp]);
 
   return (
-    <div className="prettyscoller-container">
-      <div className="prettyscroller-host" ref={scrollHostRef}>
+    <div className="swiftscoller-container">
+      <div className="swiftscroller-host" ref={scrollHostRef}>
         {children}
       </div>
-      <div className={scrollerClassNames.join(" ")} {...restProps}>
-        <div className="pretty-scrollbar-track"></div>
+      <div
+        className={scrollerClassNames.join(" ")}
+        style={{ width: scrollerWidth }}
+        {...restProps}
+      >
+        <div className="swift-scrollbar-track"></div>
         <div
-          className="pretty-scrollbar-thumb"
+          className="swift-scrollbar-thumb"
           ref={scrollerThumbRef}
           onMouseDown={handleMouseDownOnScrollThumb}
         ></div>

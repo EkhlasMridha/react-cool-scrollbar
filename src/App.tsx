@@ -1,12 +1,10 @@
 import "./App.css";
-import { PrettyScroller } from "./PrettyScroller";
-// import PrettyScroller from "./test/CustomScrollbar";
-import Scrollbar from "./test/Scrolbar2";
+import { SwiftScroller } from "./ReactSwiftScroller";
 
 function App() {
   return (
     <div className="app">
-      <PrettyScroller>
+      <SwiftScroller>
         <div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu
@@ -209,7 +207,7 @@ function App() {
             ipsum molestie
           </p>
         </div>
-      </PrettyScroller>
+      </SwiftScroller>
     </div>
   );
 }
