@@ -1,0 +1,51 @@
+.prettyscoller-container {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.prettyscroller-host {
+  overflow: auto;
+  height: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.prettyscroller-host::-webkit-scrollbar {
+  display: none;
+}
+
+.pretty-scrollbar-container {
+  bottom: 0;
+  position: absolute;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  right: 4px;
+
+  overflow: hidden;
+  .pretty-scrollbar-track {
+    opacity: 0.3;
+    border-radius: 45px;
+    width: 12px;
+    background-color: #8f8f8f;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+  }
+  .pretty-scrollbar-thumb {
+    width: 100%;
+    position: absolute;
+    background-color: #8f8f8f;
+    border-radius: 45px;
+    &:hover {
+      background-color: #858585;
+    }
+    &:active {
+      background-color: #727272;
+    }
+  }
+}
