@@ -11,6 +11,12 @@ interface ThumbDragState {
   isDragging?: boolean;
 }
 
+interface ScrollTrackEventState {
+  isTrackHold?: boolean;
+  scrollIntervalState?: number;
+  scrollCurrent?: number;
+}
+
 export const ReactCoolScrollbar = ({
   children,
   className,
@@ -20,6 +26,9 @@ export const ReactCoolScrollbar = ({
   const scrollHostRef = useRef<HTMLDivElement>(null);
   const scrollerThumbRef = useRef<HTMLDivElement>(null);
   const thumbDragState = useRef<ThumbDragState>({});
+  const scrollTrackRef = useRef<HTMLDivElement>(null);
+
+  const trackEventState = useRef<ScrollTrackEventState>({ scrollCurrent: 0 });
 
   const scrollerClassNames = ["swift-scrollbar-container", className];
 
@@ -131,6 +140,82 @@ export const ReactCoolScrollbar = ({
     };
   }, [handleThumbMouseMove, handleThumbMouseUp]);
 
+  function handleMouseDown(e: MouseEvent<HTMLDivElement>) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    trackEventState.current!.isTrackHold = true;
+
+    const scrollAmount = getScrollAmount(e) ?? 0;
+
+    scrollHostRef.current?.scrollTo({
+      behavior: "smooth",
+      top: scrollAmount,
+    });
+    // const scrollSign = scrollAmount > 0 ? 1 : -1;
+
+    // console.log("Amount total: ", scrollAmount);
+    // // trackEventState.current!.scrollCurrent = 0;
+    // trackEventState.current!.scrollIntervalState = setInterval(() => {
+    //   // for (let i = 0; i < scrollAmount; ++i) {
+    //   if (
+    //     scrollSign < 0 &&
+    //     trackEventState.current?.scrollCurrent! > scrollAmount
+    //   ) {
+    //     trackEventState.current!.scrollCurrent! -= 100;
+    //   } else if (
+    //     scrollSign > 0 &&
+    //     trackEventState.current?.scrollCurrent! < scrollAmount
+    //   ) {
+    //     trackEventState.current!.scrollCurrent! += 100;
+    //   } else {
+    //     clearInterval(trackEventState.current?.scrollIntervalState);
+    //   }
+    //   scrollHostRef.current!.scrollTo({
+    //     top: trackEventState.current!.scrollCurrent!,
+    //     // behavior: "smooth",
+    //   });
+
+    //   console.log("Scrolled: ", scrollAmount);
+
+    //   // }
+    // }, 100);
+  }
+
+  function handleMouseUp(e: MouseEvent<HTMLDivElement>) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    trackEventState.current!.isTrackHold = false;
+
+    clearInterval(trackEventState.current?.scrollIntervalState);
+  }
+
+  function getScrollAmount(e: MouseEvent<HTMLDivElement>) {
+    if (
+      !scrollTrackRef.current ||
+      !scrollerThumbRef.current ||
+      !scrollHostRef.current
+    )
+      return;
+
+    let scrollTrack = e.target as HTMLElement;
+
+    const { clientY } = e;
+    const rect = scrollTrack?.getBoundingClientRect();
+
+    const trackTop = rect?.top;
+    const thumbOffset = -(scrollerThumbRef.current?.clientHeight ?? 0) / 2;
+
+    const clickRatio =
+      (clientY - trackTop + thumbOffset) / scrollTrackRef.current.clientHeight;
+
+    const scrollAmount = Math.floor(
+      clickRatio * scrollHostRef.current?.scrollHeight
+    );
+    return scrollAmount;
+  }
+
   return (
     <div className="swiftscoller-container">
       <div className="swiftscroller-host" ref={scrollHostRef}>
@@ -141,7 +226,12 @@ export const ReactCoolScrollbar = ({
         style={{ width: scrollerWidth }}
         {...restProps}
       >
-        <div className="swift-scrollbar-track"></div>
+        <div
+          className="swift-scrollbar-track"
+          ref={scrollTrackRef}
+          onClick={handleMouseDown}
+          onMouseUp={handleMouseUp}
+        ></div>
         <div
           className="swift-scrollbar-thumb"
           ref={scrollerThumbRef}
