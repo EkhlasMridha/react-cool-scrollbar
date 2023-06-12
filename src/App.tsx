@@ -1,10 +1,10 @@
 import "./App.css";
-import { SwiftScroller } from "./ReactSwiftScroller";
+import { ReactCoolScrollbar } from "./ReactCoolScrollbar";
 
 function App() {
   return (
     <div className="app">
-      <SwiftScroller>
+      <ReactCoolScrollbar>
         <div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu
@@ -207,7 +207,7 @@ function App() {
             ipsum molestie
           </p>
         </div>
-      </SwiftScroller>
+      </ReactCoolScrollbar>
     </div>
   );
 }

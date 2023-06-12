@@ -1,7 +1,7 @@
 import { MouseEvent, RefObject, useEffect, useRef } from "react";
-import type { SwiftScrollerProps } from "./scroller.types";
+import type { CoolScrollbarProps } from "./scroller.types";
 
-import "./swift-style.scss";
+import "./scroller-style.scss";
 
 const MINIMUM_THUMB_HEIGHT = 20;
 
@@ -11,12 +11,12 @@ interface ThumbDragState {
   isDragging?: boolean;
 }
 
-export const SwiftScroller = ({
+export const ReactCoolScrollbar = ({
   children,
   className,
   scrollerWidth = 10,
   ...restProps
-}: SwiftScrollerProps) => {
+}: CoolScrollbarProps) => {
   const scrollHostRef = useRef<HTMLDivElement>(null);
   const scrollerThumbRef = useRef<HTMLDivElement>(null);
   const thumbDragState = useRef<ThumbDragState>({});
