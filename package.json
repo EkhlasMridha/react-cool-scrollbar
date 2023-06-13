@@ -1,6 +1,6 @@
 {
   "name": "react-cool-scrollbar",
-  "private": true,
+  "private": false,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -45,7 +45,13 @@
     "type": "git",
     "url": "https://github.com/EkhlasMridha/react-cool-scrollbar"
   },
-  "keywords": [],
+  "keywords": [
+    "scrollbar",
+    "custom scrollbar",
+    "react scrollbar",
+    "react",
+    "smooth"
+  ],
   "author": "ekhlas mridha shimul",
   "bugs": {
     "url": "https://github.com/EkhlasMridha/react-cool-scrollbar/issues"
