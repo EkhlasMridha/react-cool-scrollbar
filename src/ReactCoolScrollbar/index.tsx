@@ -4,14 +4,12 @@ import {
   useEffect,
   useRef,
   cloneElement,
-  lazy,
+  Suspense,
 } from "react";
 import type { CoolScrollbarProps } from "./scroller.types";
-
 import "./scroller-style.scss";
-
-const ScrollbarTrack = lazy(() => import("./ScrollbarTrack"));
-const ScrollbarThumb = lazy(() => import("./ScrollbarThumb"));
+import ScrollbarTrack from "./ScrollbarTrack";
+import ScrollbarThumb from "./ScrollbarThumb";
 
 const MINIMUM_THUMB_HEIGHT = 20;
 
@@ -67,6 +65,10 @@ export const ReactCoolScrollbar = ({
     };
   }, [children]);
 
+  useEffect(() => {
+    console.log("Rendered: ", scrollerThumbRef.current);
+  }, [scrollerThumbRef.current]);
+
   function unSubscribeEventListeners(resizeObserver: ResizeObserver) {
     resizeObserver?.unobserve(scrollHostRef.current!);
     scrollHostRef.current?.removeEventListener(
@@ -77,6 +79,7 @@ export const ReactCoolScrollbar = ({
   }
 
   function handleScrollerSize(ref: RefObject<HTMLDivElement>) {
+    console.log(scrollerThumbRef.current, scrollTrackRef.current);
     if (!ref.current || !scrollerThumbRef.current) return;
 
     const scrollElement = ref.current;
@@ -242,32 +245,34 @@ export const ReactCoolScrollbar = ({
       <div className="coolscroller-host" ref={scrollHostRef}>
         {children}
       </div>
-      <div
-        ref={scrollBarContainerRef}
-        className={scrollerClassNames.join(" ")}
-        style={{ width: scrollerWidth }}
-        {...restProps}
-      >
-        {!customScrollTrack ? (
-          <ScrollbarTrack
-            className={scrollTrackClassname}
-            handleMouseDown={handleMouseDown}
-            handleMouseUp={handleMouseUp}
-            ref={scrollTrackRef}
-          />
-        ) : (
-          getScrollTrack()
-        )}
-        {!customScrollThumb ? (
-          <ScrollbarThumb
-            ref={scrollerThumbRef}
-            className={scrollbarThumbClassname}
-            handleMouseDown={handleMouseDownOnScrollThumb}
-          />
-        ) : (
-          getScrollThumb()
-        )}
-      </div>
+      <Suspense fallback={<></>}>
+        <div
+          ref={scrollBarContainerRef}
+          className={scrollerClassNames.join(" ")}
+          style={{ width: scrollerWidth }}
+          {...restProps}
+        >
+          {!customScrollTrack ? (
+            <ScrollbarTrack
+              className={scrollTrackClassname}
+              handleMouseDown={handleMouseDown}
+              handleMouseUp={handleMouseUp}
+              ref={scrollTrackRef}
+            />
+          ) : (
+            getScrollTrack()
+          )}
+          {!customScrollThumb ? (
+            <ScrollbarThumb
+              ref={scrollerThumbRef}
+              className={scrollbarThumbClassname}
+              handleMouseDown={handleMouseDownOnScrollThumb}
+            />
+          ) : (
+            getScrollThumb()
+          )}
+        </div>
+      </Suspense>
     </div>
   );
 };
