@@ -2,6 +2,11 @@
   position: relative;
   height: 100%;
   box-sizing: border-box;
+  &:hover {
+    .swift-scrollbar-container {
+      opacity: 1;
+    }
+  }
 }
 
 .swiftscroller-host {
@@ -18,13 +23,14 @@
 }
 
 .swift-scrollbar-container {
+  transition: all 0.35s ease-in-out;
   bottom: 0;
   position: absolute;
   top: 0;
   // width: 12px;
   height: 100%;
   right: 4px;
-
+  opacity: 0;
   overflow: hidden;
   .swift-scrollbar-track {
     opacity: 0.3;
