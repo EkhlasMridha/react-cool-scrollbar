@@ -15,5 +15,4 @@ const ScrollbarTrack = forwardRef<any, ScrollbarTrackProps>(
 );
 
 ScrollbarTrack.displayName = "ScrollbarTrack";
-
 export default ScrollbarTrack;

@@ -10,5 +10,4 @@ const ScrollbarThumb = forwardRef<any, ScrollbarThumbProps>(
 );
 
 ScrollbarThumb.displayName = "ScrollbarThumb";
-
 export default ScrollbarThumb;

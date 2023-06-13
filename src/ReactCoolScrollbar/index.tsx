@@ -54,10 +54,7 @@ export const ReactCoolScrollbar = ({
     resizeObserver.observe(scrollHostRef.current);
 
     /** handle thumb position on scrolling the page */
-
     scrollHostRef.current.addEventListener("scroll", handlePageScroll, true);
-
-    /** ------------- */
 
     return () => {
       if (!scrollHostRef.current) return;
