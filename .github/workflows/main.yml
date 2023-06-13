@@ -1,35 +1,33 @@
-name: Generate tag version
+name: Create Tag and Release
+
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: New version
-        required: true
-        default: 'patch'
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
+  push:
+    branches:
+      - master
 
 jobs:
-  version:
-    name: Create new version ${{ github.event.inputs.version }}
+  createTagAndRelease:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: main
-      - run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Generate new version
-        run: npm version ${{ github.event.inputs.version }}
+      - name: Generate Tag and Release
+        run: |
+          # Retrieve the current commit SHA
+          COMMIT_SHA=$(git rev-parse HEAD)
 
-      - name: Push new version tag to repository
-        run: git push origin main --tags
+          # Generate a unique tag name using the commit SHA
+          TAG_NAME="v${COMMIT_SHA::8}"
+
+          # Create a lightweight tag
+          git tag $TAG_NAME $COMMIT_SHA
+
+          # Push the tag to GitHub
+          git push origin $TAG_NAME
+
+          # Create a release associated with the tag
+          API_URL="https://api.github.com/repos/${{ github.repository }}/releases"
+          RELEASE_BODY="Release description"
+          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -d "{\"tag_name\":\"$TAG_NAME\",\"body\":\"$RELEASE_BODY\"}" $API_URL
