@@ -114,12 +114,15 @@ export const ReactCoolScrollbar = ({
         scrollHostRef.current.scrollTop;
     }
     thumbDragState.current!.isDragging = true;
+
+    scrollBarContainerRef.current?.classList.add("active");
   };
 
   function handleThumbMouseUp(e: globalThis.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
 
+    scrollBarContainerRef.current?.classList.remove("active");
     if (thumbDragState.current?.isDragging)
       thumbDragState.current.isDragging = false;
   }
