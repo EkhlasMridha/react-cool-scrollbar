@@ -27,11 +27,12 @@
   bottom: 0;
   position: absolute;
   top: 0;
-  // width: 12px;
   height: 100%;
   right: 4px;
-  opacity: 0;
   overflow: hidden;
+  &:not(:active) {
+    opacity: 0;
+  }
   .cool-scrollbar-track {
     opacity: 0.3;
     border-radius: 45px;
