@@ -7,7 +7,6 @@ import {
   Suspense,
 } from "react";
 import type { CoolScrollbarProps } from "./scroller.types";
-import "./scroller-style.scss";
 import ScrollbarTrack from "./ScrollbarTrack";
 import ScrollbarThumb from "./ScrollbarThumb";
 

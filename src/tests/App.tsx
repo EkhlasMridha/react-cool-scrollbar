@@ -1,5 +1,5 @@
 import "./App.css";
-import { ReactCoolScrollbar } from "./ReactCoolScrollbar";
+import { ReactCoolScrollbar } from "../packages/ReactCoolScrollbar/CoolScrollbar";
 
 function App() {
   return (
