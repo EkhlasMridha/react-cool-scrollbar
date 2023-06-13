@@ -9,8 +9,6 @@ import {
 import type { CoolScrollbarProps } from "./scroller.types";
 
 import "./scroller-style.scss";
-// import ScrollbarTrack from "./ScrollbarTrack";
-// import ScrollbarThumb from "./ScrollbarThumb";
 
 const ScrollbarTrack = lazy(() => import("./ScrollbarTrack"));
 const ScrollbarThumb = lazy(() => import("./ScrollbarThumb"));
@@ -41,6 +39,7 @@ export const ReactCoolScrollbar = ({
   const scrollerThumbRef = useRef<HTMLDivElement>(null);
   const thumbDragState = useRef<ThumbDragState>({});
   const scrollTrackRef = useRef<HTMLDivElement>(null);
+  const scrollBarContainerRef = useRef<HTMLDivElement>(null);
 
   const trackEventState = useRef<ScrollTrackEventState>({ scrollCurrent: 0 });
 
@@ -88,6 +87,9 @@ export const ReactCoolScrollbar = ({
     );
 
     scrollerThumbRef.current!.style.height = `${thumbHeight}px`;
+
+    scrollBarContainerRef.current!.style.display =
+      thumbHeight >= scrollHeight ? "none" : "block";
   }
 
   function handlePageScroll(e: Event) {
@@ -241,6 +243,7 @@ export const ReactCoolScrollbar = ({
         {children}
       </div>
       <div
+        ref={scrollBarContainerRef}
         className={scrollerClassNames.join(" ")}
         style={{ width: scrollerWidth }}
         {...restProps}
