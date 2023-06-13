@@ -1,15 +1,15 @@
-.swiftscoller-container {
+.coolscoller-container {
   position: relative;
   height: 100%;
   box-sizing: border-box;
   &:hover {
-    .swift-scrollbar-container {
+    .cool-scrollbar-container {
       opacity: 1;
     }
   }
 }
 
-.swiftscroller-host {
+.coolscroller-host {
   overflow: auto;
   height: 100%;
   scrollbar-width: none;
@@ -18,11 +18,11 @@
   box-sizing: border-box;
 }
 
-.swiftscroller-host::-webkit-scrollbar {
+.coolscroller-host::-webkit-scrollbar {
   display: none;
 }
 
-.swift-scrollbar-container {
+.cool-scrollbar-container {
   transition: all 0.35s ease-in-out;
   bottom: 0;
   position: absolute;
@@ -32,7 +32,7 @@
   right: 4px;
   opacity: 0;
   overflow: hidden;
-  .swift-scrollbar-track {
+  .cool-scrollbar-track {
     opacity: 0.3;
     border-radius: 45px;
     background-color: #8f8f8f;
@@ -42,7 +42,7 @@
     bottom: 0;
     top: 0;
   }
-  .swift-scrollbar-thumb {
+  .cool-scrollbar-thumb {
     width: 100%;
     position: absolute;
     background-color: #8f8f8f;
