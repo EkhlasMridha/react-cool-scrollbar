@@ -9,12 +9,12 @@ export default defineConfig({
     react(),
     dts({
       insertTypesEntry: true,
-      include: ["src/packages/ReactCoolScrollbar/"],
+      include: ["src/packages/"],
     }),
   ],
   build: {
     lib: {
-      entry: resolve("src", "packages/ReactCoolScrollbar/index.ts"),
+      entry: resolve("src", "packages/index.ts"),
       name: "ReactCoolScrollbar",
       formats: ["es", "umd"],
       fileName: (format) => `react-cool-scrollbar.${format}.js`,
