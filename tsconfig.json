@@ -19,7 +19,7 @@
     "declarationMap": true,
     "baseUrl": ".",
     "paths": {
-      "react-vite-library": ["src/packages/index.ts"]
+      "react-cool-scrollbar": ["src/packages/index.ts"]
     },
     "typeRoots": ["node_modules/@types", "src/packages/index.d.ts"]
   },
