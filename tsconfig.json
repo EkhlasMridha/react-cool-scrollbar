@@ -15,16 +15,13 @@
     "jsx": "react-jsx",
     "declaration": true,
     "skipLibCheck": true,
-     "esModuleInterop": true ,
-     "declarationMap": true,
+    "esModuleInterop": true,
+    "declarationMap": true,
     "baseUrl": ".",
-     "paths": {
-      "react-cool-scrollbar": [ "src/packages/index.ts" ]
+    "paths": {
+      "react-vite-library": ["src/packages/index.ts"]
     },
-    "typeRoots": [
-      "node_modules/@types",
-      "src/packages/index.d.ts"
-    ]
+    "typeRoots": ["node_modules/@types", "src/packages/index.d.ts"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
