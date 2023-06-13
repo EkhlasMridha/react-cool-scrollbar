@@ -65,10 +65,6 @@ export const ReactCoolScrollbar = ({
     };
   }, [children]);
 
-  useEffect(() => {
-    console.log("Rendered: ", scrollerThumbRef.current);
-  }, [scrollerThumbRef.current]);
-
   function unSubscribeEventListeners(resizeObserver: ResizeObserver) {
     resizeObserver?.unobserve(scrollHostRef.current!);
     scrollHostRef.current?.removeEventListener(
@@ -79,7 +75,6 @@ export const ReactCoolScrollbar = ({
   }
 
   function handleScrollerSize(ref: RefObject<HTMLDivElement>) {
-    console.log(scrollerThumbRef.current, scrollTrackRef.current);
     if (!ref.current || !scrollerThumbRef.current) return;
 
     const scrollElement = ref.current;
