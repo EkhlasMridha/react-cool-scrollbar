@@ -1,9 +1,5 @@
-import { type HtmlHTMLAttributes, forwardRef, type MouseEvent } from "react";
-
-interface ScrollbarTrackProps extends HtmlHTMLAttributes<HTMLDivElement> {
-  handleMouseDown: (e: MouseEvent<HTMLDivElement>) => void;
-  handleMouseUp: (e: MouseEvent<HTMLDivElement>) => void;
-}
+import { forwardRef } from "react";
+import type { ScrollbarTrackProps } from "./scroller.types";
 
 const ScrollbarTrack = forwardRef<any, ScrollbarTrackProps>(
   ({ handleMouseDown, handleMouseUp, className }, ref) => {

@@ -1,9 +1,19 @@
-import { MouseEvent, RefObject, useEffect, useRef } from "react";
+import {
+  type MouseEvent,
+  type RefObject,
+  useEffect,
+  useRef,
+  cloneElement,
+  lazy,
+} from "react";
 import type { CoolScrollbarProps } from "./scroller.types";
 
 import "./scroller-style.scss";
-import ScrollbarTrack from "./ScrollbarTrack";
-import ScrollbarThumb from "./ScrollbarThumb";
+// import ScrollbarTrack from "./ScrollbarTrack";
+// import ScrollbarThumb from "./ScrollbarThumb";
+
+const ScrollbarTrack = lazy(() => import("./ScrollbarTrack"));
+const ScrollbarThumb = lazy(() => import("./ScrollbarThumb"));
 
 const MINIMUM_THUMB_HEIGHT = 20;
 
@@ -23,6 +33,8 @@ export const ReactCoolScrollbar = ({
   children,
   className,
   scrollerWidth = 10,
+  customScrollThumb,
+  customScrollTrack,
   ...restProps
 }: CoolScrollbarProps) => {
   const scrollHostRef = useRef<HTMLDivElement>(null);
@@ -192,6 +204,37 @@ export const ReactCoolScrollbar = ({
     return scrollAmount;
   }
 
+  const getScrollTrack = () => {
+    return typeof customScrollTrack === "function"
+      ? customScrollTrack({
+          ref: scrollTrackRef,
+          handleMouseDown: handleMouseDown,
+          handleMouseUp,
+          className: scrollTrackClassname,
+        })
+      : cloneElement(customScrollTrack!, {
+          ref: scrollTrackRef,
+          handleMouseDown: handleMouseDown,
+          handleMouseUp,
+          className: scrollTrackClassname,
+        });
+  };
+
+  const getScrollThumb = () => {
+    return typeof customScrollThumb === "function"
+      ? customScrollThumb({
+          ref: scrollerThumbRef,
+          handleMouseDown: handleMouseDownOnScrollThumb,
+          className: scrollbarThumbClassname,
+        })
+      : cloneElement(customScrollThumb!, {
+          ref: scrollerThumbRef,
+          handleMouseDown: handleMouseDownOnScrollThumb,
+          handleMouseUp,
+          className: scrollbarThumbClassname,
+        });
+  };
+
   return (
     <div className="coolscoller-container">
       <div className="coolscroller-host" ref={scrollHostRef}>
@@ -202,17 +245,25 @@ export const ReactCoolScrollbar = ({
         style={{ width: scrollerWidth }}
         {...restProps}
       >
-        <ScrollbarTrack
-          className={scrollTrackClassname}
-          handleMouseDown={handleMouseDown}
-          handleMouseUp={handleMouseUp}
-          ref={scrollTrackRef}
-        />
-        <ScrollbarThumb
-          ref={scrollerThumbRef}
-          className={scrollbarThumbClassname}
-          handleMouseDown={handleMouseDownOnScrollThumb}
-        />
+        {!customScrollTrack ? (
+          <ScrollbarTrack
+            className={scrollTrackClassname}
+            handleMouseDown={handleMouseDown}
+            handleMouseUp={handleMouseUp}
+            ref={scrollTrackRef}
+          />
+        ) : (
+          getScrollTrack()
+        )}
+        {!customScrollThumb ? (
+          <ScrollbarThumb
+            ref={scrollerThumbRef}
+            className={scrollbarThumbClassname}
+            handleMouseDown={handleMouseDownOnScrollThumb}
+          />
+        ) : (
+          getScrollThumb()
+        )}
       </div>
     </div>
   );

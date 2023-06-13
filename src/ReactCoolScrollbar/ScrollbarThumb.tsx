@@ -1,8 +1,5 @@
-import { type HtmlHTMLAttributes, forwardRef, type MouseEvent } from "react";
-
-interface ScrollbarThumbProps extends HtmlHTMLAttributes<HTMLDivElement> {
-  handleMouseDown: (e: MouseEvent<HTMLDivElement>) => void;
-}
+import { forwardRef } from "react";
+import type { ScrollbarThumbProps } from "./scroller.types";
 
 const ScrollbarThumb = forwardRef<any, ScrollbarThumbProps>(
   ({ handleMouseDown, className }, ref) => {
