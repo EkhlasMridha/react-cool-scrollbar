@@ -1,7 +1,7 @@
 {
   "name": "react-cool-scrollbar",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,19 +9,6 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
-  "files": [
-    "dist"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/react-cool-scrollbar.es.js",
-      "require": "./dist/react-cool-scrollbar.umd.js"
-    },
-    "./dist/style.css": "./dist/style.css"
-  },
-  "main": "./dist/react-cool-scrollbar.umd.js",
-  "module": "./dist/react-cool-scrollbar.es.js",
-  "types": "./dist/index.d.ts",
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -57,5 +44,19 @@
     "url": "https://github.com/EkhlasMridha/react-cool-scrollbar/issues"
   },
   "homepage": "https://github.com/EkhlasMridha/react-cool-scrollbar#readme",
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/react-cool-scrollbar.es.js",
+      "require": "./dist/react-cool-scrollbar.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "main": "./dist/react-cool-scrollbar.umd.js",
+  "module": "./dist/react-cool-scrollbar.es.js",
+  "types": "./dist/index.d.ts",
+  "dependencies": {}
 }
