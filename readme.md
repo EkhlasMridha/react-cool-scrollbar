@@ -39,9 +39,9 @@ Make the style property of the parent as `display:flex`.
 - `scrollerWidth` : Receives a `number` as input to set the width of the scrollbar.
 - `className` : Can be used to style the custom scrollbar. The className will be applied on the container of `scrollTrack` and `scrollThumb`
 
-- `customScrollTrack` : You can customize the scroll track by passing a component or a function that will return a component.\
+- `customScrollTrack` : You can customize the scroll track by passing a component or a function that will return a component.
 
-  - Example:\
+  - Example:
     ```typescript
     <ReactCoolScrollbar
       customScrollTrack={<div className="custom-scroll"></div>}
@@ -59,7 +59,7 @@ Make the style property of the parent as `display:flex`.
       {/** your scrollable content here */}
     </ReactCoolScrollbar>
     ```
-    The passed component or function will receive the following props\
+    The passed component or function will receive the following props
 
   ```
    handleMouseDown: (e: MouseEvent<HTMLDivElement>) => void;
@@ -68,7 +68,7 @@ Make the style property of the parent as `display:flex`.
 
   If you use a separate component or function then you have to pass every prop on your component.
 
-- `customScrollThumb` : Same as `customScrollTrack` prop but it will customize the scroll thumb component. This component will receive prop\
+- `customScrollThumb` : Same as `customScrollTrack` prop but it will customize the scroll thumb component. This component will receive prop
   - ```typescript
         handleMouseDown: (e: MouseEvent<HTMLDivElement>) => void;
     ```
