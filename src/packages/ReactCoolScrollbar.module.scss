@@ -1,15 +1,15 @@
-.coolscoller-container {
+.coolscollerContainer {
   position: relative;
   height: 100%;
   box-sizing: border-box;
   &:hover {
-    .cool-scrollbar-container {
+    .coolScrollbarContainer {
       opacity: 1;
     }
   }
 }
 
-.coolscroller-host {
+.coolscrollerHost {
   overflow: auto;
   height: 100%;
   scrollbar-width: none;
@@ -18,11 +18,11 @@
   box-sizing: border-box;
 }
 
-.coolscroller-host::-webkit-scrollbar {
+.coolscrollerHost::-webkit-scrollbar {
   display: none;
 }
 
-.cool-scrollbar-container {
+.coolScrollbarContainer {
   transition: all 0.35s ease-in-out;
   bottom: 0;
   position: absolute;
@@ -30,10 +30,10 @@
   height: 100%;
   right: 4px;
   overflow: hidden;
-  &:not(.active) {
+  &:not([area-active="true"]) {
     opacity: 0;
   }
-  .cool-scrollbar-track {
+  .coolScrollbarTrack {
     opacity: 0.3;
     border-radius: 45px;
     background-color: #8f8f8f;
@@ -43,7 +43,7 @@
     bottom: 0;
     top: 0;
   }
-  .cool-scrollbar-thumb {
+  .coolScrollbarThumb {
     width: 100%;
     position: absolute;
     background-color: #8f8f8f;
@@ -52,8 +52,8 @@
       background-color: #858585;
     }
   }
-  &.active {
-    .cool-scrollbar-thumb {
+  &[area-active="true"] {
+    .coolScrollbarThumb {
       background-color: #727272;
     }
   }

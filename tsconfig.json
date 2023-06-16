@@ -8,7 +8,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -21,7 +21,7 @@
     "paths": {
       "react-cool-scrollbar": ["src/packages/index.ts"]
     },
-    "typeRoots": ["node_modules/@types", "src/packages/index.d.ts"]
+    "typeRoots": ["node_modules/@types", ".dist/index.d.ts"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

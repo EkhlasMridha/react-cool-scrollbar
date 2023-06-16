@@ -15,6 +15,7 @@ export interface CoolScrollbarProps extends HtmlHTMLAttributes<HTMLDivElement> {
   customScrollThumb?:
     | ((props: WithRef<ScrollbarThumbProps>) => ReactElement)
     | ReactElement;
+  style?: any;
 }
 
 export interface ScrollbarThumbProps

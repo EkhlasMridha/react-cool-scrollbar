@@ -9,24 +9,24 @@ export default defineConfig({
     react(),
     dts({
       insertTypesEntry: true,
-      include: ["src/packages/"],
     }),
   ],
   build: {
     lib: {
-      entry: resolve("src", "packages/index.ts"),
+      entry: resolve(__dirname, "src/packages/index.ts"),
       name: "ReactCoolScrollbar",
-      formats: ["es", "umd"],
-      fileName: (format) => `react-cool-scrollbar.${format}.js`,
+      // formats: ["cjs", "umd"],
+      fileName: `react-cool-scrollbar`,
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime"],
+      external: ["react", "react/jsx-runtime"],
       output: {
         globals: {
           react: "React",
-          "react-dom": "ReactDOM",
+          "react/jsx-runtime": "jsxRuntime",
         },
       },
     },
+    sourcemap: true,
   },
 });

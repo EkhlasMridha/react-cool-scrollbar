@@ -1,7 +1,8 @@
-export { ReactCoolScrollbar } from "./ReactCoolScrollbar";
+import ReactCoolScrollbar from "./ReactCoolScrollbar";
 export type {
   CoolScrollbarProps,
   ScrollbarThumbProps,
   ScrollbarTrackProps,
 } from "./scroller.types";
-import "./style.scss";
+import "./ReactCoolScrollbar.module.scss";
+export { ReactCoolScrollbar };

@@ -4,11 +4,11 @@ import {
   useEffect,
   useRef,
   cloneElement,
-  Suspense,
 } from "react";
 import type { CoolScrollbarProps } from "./scroller.types";
 import ScrollbarTrack from "./ScrollbarTrack";
 import ScrollbarThumb from "./ScrollbarThumb";
+import style from "./ReactCoolScrollbar.module.scss";
 
 const MINIMUM_THUMB_HEIGHT = 20;
 
@@ -24,7 +24,7 @@ interface ScrollTrackEventState {
   scrollCurrent?: number;
 }
 
-export const ReactCoolScrollbar = ({
+const ReactCoolScrollbar = ({
   children,
   className,
   scrollerWidth = 10,
@@ -40,9 +40,9 @@ export const ReactCoolScrollbar = ({
 
   const trackEventState = useRef<ScrollTrackEventState>({ scrollCurrent: 0 });
 
-  const scrollerClassNames = ["cool-scrollbar-container", className];
-  const scrollTrackClassname = "cool-scrollbar-track";
-  const scrollbarThumbClassname = "cool-scrollbar-thumb";
+  const scrollerClassNames = [style.coolScrollbarContainer, className];
+  const scrollTrackClassname = style.coolScrollbarTrack;
+  const scrollbarThumbClassname = style.coolScrollbarThumb;
 
   useEffect(() => {
     if (!scrollHostRef.current) return;
@@ -111,14 +111,14 @@ export const ReactCoolScrollbar = ({
     }
     thumbDragState.current!.isDragging = true;
 
-    scrollBarContainerRef.current?.classList.add("active");
+    scrollBarContainerRef.current?.setAttribute("area-active", "true");
   };
 
   function handleThumbMouseUp(e: globalThis.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
 
-    scrollBarContainerRef.current?.classList.remove("active");
+    scrollBarContainerRef.current?.setAttribute("area-active", "false");
     if (thumbDragState.current?.isDragging)
       thumbDragState.current.isDragging = false;
   }
@@ -235,38 +235,38 @@ export const ReactCoolScrollbar = ({
   };
 
   return (
-    <div className="coolscoller-container">
-      <div className="coolscroller-host" ref={scrollHostRef}>
+    <div className={style.coolscollerContainer}>
+      <div className={style.coolscrollerHost} ref={scrollHostRef}>
         {children}
       </div>
-      <Suspense fallback={<></>}>
-        <div
-          ref={scrollBarContainerRef}
-          className={scrollerClassNames.join(" ")}
-          style={{ width: scrollerWidth }}
-          {...restProps}
-        >
-          {!customScrollTrack ? (
-            <ScrollbarTrack
-              className={scrollTrackClassname}
-              handleMouseDown={handleMouseDown}
-              handleMouseUp={handleMouseUp}
-              ref={scrollTrackRef}
-            />
-          ) : (
-            getScrollTrack()
-          )}
-          {!customScrollThumb ? (
-            <ScrollbarThumb
-              ref={scrollerThumbRef}
-              className={scrollbarThumbClassname}
-              handleMouseDown={handleMouseDownOnScrollThumb}
-            />
-          ) : (
-            getScrollThumb()
-          )}
-        </div>
-      </Suspense>
+      <div
+        ref={scrollBarContainerRef}
+        className={scrollerClassNames.join(" ")}
+        style={{ width: scrollerWidth }}
+        {...restProps}
+      >
+        {!customScrollTrack ? (
+          <ScrollbarTrack
+            className={scrollTrackClassname}
+            handleMouseDown={handleMouseDown}
+            handleMouseUp={handleMouseUp}
+            ref={scrollTrackRef}
+          />
+        ) : (
+          getScrollTrack()
+        )}
+        {!customScrollThumb ? (
+          <ScrollbarThumb
+            ref={scrollerThumbRef}
+            className={scrollbarThumbClassname}
+            handleMouseDown={handleMouseDownOnScrollThumb}
+          />
+        ) : (
+          getScrollThumb()
+        )}
+      </div>
     </div>
   );
 };
+
+export default ReactCoolScrollbar;
