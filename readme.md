@@ -18,7 +18,6 @@ import "react-cool-scrollbar/dist/style.css"; //style files
 function App() {
   return (
     <div className="app">
-      {" "}
       {/** .app {display: flex;} */}
       <ReactCoolScrollbar>
         {/** your scrollable content here */}
