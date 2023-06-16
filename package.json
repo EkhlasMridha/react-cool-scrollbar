@@ -1,10 +1,10 @@
 {
   "name": "react-cool-scrollbar",
   "private": false,
-  "version": "1.2.2",
+  "version": "1.2.3",
   "type": "module",
   "files": [
-    "src",
+    "src/packages",
     "readme.md"
   ],
   "main": "./dist/react-cool-scrollbar.umd.cjs",
