@@ -4,7 +4,8 @@
   "version": "1.2.1-beta",
   "type": "module",
   "files": [
-    "dist"
+    "src",
+    "readme.md"
   ],
   "main": "./dist/react-cool-scrollbar.umd.cjs",
   "module": "./dist/react-cool-scrollbar.js",
