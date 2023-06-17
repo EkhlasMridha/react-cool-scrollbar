@@ -1,12 +1,17 @@
+![npm](https://img.shields.io/npm/v/react-cool-scrollbar) ![NPM License](https://img.shields.io/npm/l/react-cool-scrollbar) ![ReactJS](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=flat)
+
 # react-cool-scrollbar
 
 It's a simple react library for a customized browser independent scrollbar for your web page
 
 ## Installation
 
-using npm\
-`npm install react-cool-scrollbar`\
-or yarn\
+### npm
+
+`npm install react-cool-scrollbar`
+
+### or yarn
+
 `yarn add react-cool-scrollbar`
 
 ## How to use
@@ -65,7 +70,7 @@ Make the style property of the parent as `display:flex`.
    handleMouseUp: (e: MouseEvent<HTMLDivElement>) => void;
   ```
 
-  If you use a separate component or function then you have to pass every prop on your component.
+  If you use a separate component or function then you have to pass every received prop to your component.
 
 - `customScrollThumb` : Same as `customScrollTrack` prop but it will customize the scroll thumb component. This component will receive prop
   - ```typescript
