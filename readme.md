@@ -16,14 +16,25 @@ It's a simple react library for a customized browser independent scrollbar for y
 
 ## How to use
 
+### import component and styles
+
+Import `ReactCoolScrollbar` component and styles
+
 ```typescript
 import { ReactCoolScrollbar } from "react-cool-scrollbar"; //scroller component
 import "react-cool-scrollbar/dist/style.css"; //style files
+```
 
+### Using the component
+
+You can use the component like below example-
+
+```typescript
 function App() {
   return (
     <div className="app">
       {/** .app {display: flex;} */}
+
       <ReactCoolScrollbar>
         {/** your scrollable content here */}
       </ReactCoolScrollbar>
@@ -35,8 +46,8 @@ export default App;
 ```
 
 You must import the style file to make the scrollbar work.\
-Make sure the parent of `ReactCoolScrollbar` component must be the scroll host of the scroller content.\
-Make the style property of the parent as `display:flex`.
+Make sure the parent of `ReactCoolScrollbar` component must be the scroll host of the scrollable content.\
+Make the style property of the parent as `display:flex`. This will work in most cases.
 
 ## Props
 
