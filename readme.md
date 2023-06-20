@@ -16,7 +16,7 @@ It's a simple react library for a customized browser independent scrollbar for y
 
 ## Demo
 
-Here you can find a [demo](https://codesandbox.io/s/elegant-wind-zpnjp6?file=/src/App.tsx)
+Here you can find a <a href="https://codesandbox.io/s/elegant-wind-zpnjp6?file=/src/App.tsx" target="_blank" style="padding:6px 8px;background:#52B2BF;color:#242424;border-radius:4px;text-decoration:none">demo</a>
 
 ## Features
 
