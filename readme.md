@@ -14,6 +14,15 @@ It's a simple react library for a customized browser independent scrollbar for y
 
 `yarn add react-cool-scrollbar`
 
+## Demo
+
+Here you can find a [demo](https://codesandbox.io/s/elegant-wind-zpnjp6?file=/src/App.tsx)
+
+## Features
+
+- Scrollbar customization (external component can be provided as scroll thumb or track)
+- Customizable scrollbar width
+
 ## How to use
 
 ```typescript
