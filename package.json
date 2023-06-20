@@ -1,7 +1,7 @@
 {
   "name": "react-cool-scrollbar",
   "private": false,
-  "version": "1.2.5",
+  "version": "1.2.7",
   "type": "module",
   "files": [
     "dist",
@@ -9,6 +9,7 @@
   ],
   "main": "./dist/react-cool-scrollbar.umd.cjs",
   "module": "./dist/react-cool-scrollbar.js",
+  "types": "./dist/react-cool-scrollbar.d.ts",
   "exports": {
     ".": {
       "import": "./dist/react-cool-scrollbar.js",
@@ -37,7 +38,6 @@
     "eslint-plugin-react-refresh": "^0.3.4",
     "path": "^0.12.7",
     "sass": "^1.63.4",
-    "typed-css-modules": "^0.7.2",
     "typed-scss-modules": "^7.1.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
@@ -53,7 +53,10 @@
     "react scrollbar",
     "react",
     "smooth",
-    "cool"
+    "cool",
+    "component",
+    "customizable",
+    "pretty scrollbar"
   ],
   "author": "ekhlas mridha shimul",
   "bugs": {
