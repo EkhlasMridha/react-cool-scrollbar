@@ -16,7 +16,7 @@ It's a simple react library for a customized browser independent scrollbar for y
 
 ## Demo
 
-Here you can find a <a href="https://codesandbox.io/s/elegant-wind-zpnjp6?file=/src/App.tsx" target="_blank" style="padding:6px 8px;background:#52B2BF;color:#242424;border-radius:4px;text-decoration:none">demo</a>
+Here you can find a <a href="https://codesandbox.io/s/elegant-wind-zpnjp6?file=/src/App.tsx" target="_blank" style="padding:6px 8px;background:#52B2BF;color:#242424;border-radius:4px;text-decoration:none" rel="noopener noreferrer">demo</a>
 
 ## Features
 
@@ -59,6 +59,12 @@ Make sure the parent of `ReactCoolScrollbar` component must be the scroll host o
 Make the style property of the parent as `display:flex`. This will work in most cases.
 
 ## Props
+
+- `scrollBarVisibility`: This prop can receive 3 types of conditions to make the scrollbar visible on the UI.
+
+  - `always`: Scrollbar will be always visible.
+  - `onhover`: Scrollbar will be visible on hover the scroll container.
+  - `onscroll`: Scrollbar will be visible on scrolling the page.
 
 - `scrollerWidth` : Receives a `number` as input to set the width of the scrollbar.
 - `className` : Can be used to style the custom scrollbar. The className will be applied on the container of `scrollTrack` and `scrollThumb`

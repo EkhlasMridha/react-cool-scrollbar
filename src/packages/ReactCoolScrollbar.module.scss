@@ -1,10 +1,19 @@
 .coolscollerContainer {
   position: relative;
   box-sizing: border-box;
+}
+
+.coolscollerContainer:has([aria-controls="onhover"]) {
   &:hover {
     .coolScrollbarContainer {
       opacity: 1;
     }
+  }
+}
+
+.coolscollerContainer:has([aria-controls="always"]) {
+  .coolScrollbarContainer {
+    opacity: 1;
   }
 }
 
@@ -22,7 +31,7 @@
 }
 
 .coolScrollbarContainer {
-  transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-out;
   bottom: 0;
   position: absolute;
   top: 0;

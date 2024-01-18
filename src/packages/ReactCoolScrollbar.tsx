@@ -30,6 +30,7 @@ const ReactCoolScrollbar = ({
   scrollerWidth = 10,
   customScrollThumb,
   customScrollTrack,
+  scrollBarVisibility = "onhover",
   ...restProps
 }: CoolScrollbarProps) => {
   const scrollHostRef = useRef<HTMLDivElement>(null);
@@ -43,6 +44,7 @@ const ReactCoolScrollbar = ({
   const scrollerClassNames = [style.coolScrollbarContainer, className];
   const scrollTrackClassname = style.coolScrollbarTrack;
   const scrollbarThumbClassname = style.coolScrollbarThumb;
+  let timer: number;
 
   useEffect(() => {
     if (!scrollHostRef.current) return;
@@ -89,15 +91,27 @@ const ReactCoolScrollbar = ({
   function handlePageScroll(e: Event) {
     if (!scrollerThumbRef.current) return;
 
-    let hostElement = e.target as HTMLDivElement;
+    let hostElement = e.target as HTMLDivElement | null;
+    if (!hostElement?.contains(scrollHostRef.current)) return;
 
     const thumbHeight = scrollerThumbRef.current?.clientHeight;
 
-    const { scrollTop, scrollHeight, offsetHeight } = hostElement;
+    if (scrollBarVisibility === "onscroll") {
+      scrollHostRef.current?.setAttribute("aria-controls", "always");
+
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        scrollHostRef.current?.setAttribute("aria-controls", "onscroll");
+      }, 1500);
+    }
+
+    const { scrollTop, scrollHeight, offsetHeight } = hostElement!;
     let newTop = (scrollTop / scrollHeight) * offsetHeight;
     newTop = Math.min(newTop, offsetHeight - thumbHeight);
 
     scrollerThumbRef.current!.style.top = `${newTop ?? 0}px`;
+
+    hostElement = null;
   }
 
   const handleMouseDownOnScrollThumb = (e: MouseEvent<HTMLDivElement>) => {
@@ -117,13 +131,22 @@ const ReactCoolScrollbar = ({
   function handleThumbMouseUp(e: globalThis.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
+    if (!(e.target as HTMLDivElement).contains(scrollHostRef.current)) return;
 
     scrollBarContainerRef.current?.setAttribute("area-active", "false");
+
+    if (scrollBarVisibility === "onscroll") {
+      clearTimeout(timer);
+      scrollHostRef.current?.setAttribute("aria-controls", "onscroll");
+    }
+
     if (thumbDragState.current?.isDragging)
       thumbDragState.current.isDragging = false;
   }
 
   const handleThumbMouseMove = (e: globalThis.MouseEvent) => {
+    if (!(e.target as HTMLDivElement).contains(scrollHostRef.current)) return;
+
     if (thumbDragState.current?.isDragging) {
       e.preventDefault();
       e.stopPropagation();
@@ -235,8 +258,12 @@ const ReactCoolScrollbar = ({
   };
 
   return (
-    <div className={style.coolscollerContainer}>
-      <div className={style.coolscrollerHost} ref={scrollHostRef}>
+    <div className={[style.coolscollerContainer].join(" ")}>
+      <div
+        className={style.coolscrollerHost}
+        ref={scrollHostRef}
+        aria-controls={scrollBarVisibility}
+      >
         {children}
       </div>
       <div
