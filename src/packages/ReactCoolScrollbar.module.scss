@@ -17,6 +17,10 @@
   }
 }
 
+.coolScrollbarContainer:hover {
+  opacity: 1 !important;
+}
+
 .coolscrollerHost {
   overflow: auto;
   height: 100%;
