@@ -92,6 +92,7 @@ const ReactCoolScrollbar = ({
     if (!scrollerThumbRef.current) return;
 
     let hostElement = e.target as HTMLDivElement | null;
+    if (!hostElement?.contains(scrollHostRef.current)) return;
 
     const thumbHeight = scrollerThumbRef.current?.clientHeight;
 
@@ -130,6 +131,7 @@ const ReactCoolScrollbar = ({
   function handleThumbMouseUp(e: globalThis.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
+    if (!(e.target as HTMLDivElement).contains(scrollHostRef.current)) return;
 
     scrollBarContainerRef.current?.setAttribute("area-active", "false");
 
@@ -143,6 +145,8 @@ const ReactCoolScrollbar = ({
   }
 
   const handleThumbMouseMove = (e: globalThis.MouseEvent) => {
+    if (!(e.target as HTMLDivElement).contains(scrollHostRef.current)) return;
+
     if (thumbDragState.current?.isDragging) {
       e.preventDefault();
       e.stopPropagation();

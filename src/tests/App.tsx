@@ -4,7 +4,7 @@ import { ReactCoolScrollbar } from "../packages";
 function App() {
   return (
     <div className="app">
-      <ReactCoolScrollbar scrollBarVisibility="always">
+      <ReactCoolScrollbar scrollBarVisibility="onhover">
         <div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu

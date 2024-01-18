@@ -49,6 +49,12 @@ Make the style property of the parent as `display:flex`.
 
 ## Props
 
+- `scrollBarVisibility`: This prop can receive 3 types of conditions to make the scrollbar visible on the UI.
+
+* `always`: Scrollbar will be always visible.
+* `onhover`: Scrollbar will be visible on hover the scroll container.
+* `onscroll`: Scrollbar will be visible on scrolling the page.
+
 - `scrollerWidth` : Receives a `number` as input to set the width of the scrollbar.
 - `className` : Can be used to style the custom scrollbar. The className will be applied on the container of `scrollTrack` and `scrollThumb`
 
