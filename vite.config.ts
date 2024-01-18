@@ -7,17 +7,17 @@ import dts from "vite-plugin-dts";
 export default defineConfig({
   plugins: [
     react(),
-    dts({
-      insertTypesEntry: true,
-    }),
+    // dts({
+    //   insertTypesEntry: true,
+    // }),
   ],
   build: {
-    lib: {
-      entry: resolve(__dirname, "src/packages/index.ts"),
-      name: "ReactCoolScrollbar",
-      // formats: ["cjs", "umd"],
-      fileName: `react-cool-scrollbar`,
-    },
+    // lib: {
+    //   entry: resolve(__dirname, "src/packages/index.ts"),
+    //   name: "ReactCoolScrollbar",
+    //   // formats: ["cjs", "umd"],
+    //   fileName: `react-cool-scrollbar`,
+    // },
     rollupOptions: {
       external: ["react", "react/jsx-runtime"],
       output: {
@@ -27,6 +27,6 @@ export default defineConfig({
         },
       },
     },
-    sourcemap: true,
+    // sourcemap: true,
   },
 });

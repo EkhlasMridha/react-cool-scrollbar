@@ -6,6 +6,7 @@ import type {
 } from "react";
 
 type WithRef<T> = T & { ref: RefObject<HTMLElement> };
+type ScrollbarVisibilityType = "onscroll" | "always" | "onhover";
 
 export interface CoolScrollbarProps extends HtmlHTMLAttributes<HTMLDivElement> {
   scrollerWidth?: number;
@@ -16,6 +17,7 @@ export interface CoolScrollbarProps extends HtmlHTMLAttributes<HTMLDivElement> {
     | ((props: WithRef<ScrollbarThumbProps>) => ReactElement)
     | ReactElement;
   style?: any;
+  scrollBarVisibility?: ScrollbarVisibilityType;
 }
 
 export interface ScrollbarThumbProps
