@@ -5,24 +5,16 @@ import {
   useRef,
   cloneElement,
 } from "react";
-import type { CoolScrollbarProps } from "./scroller.types";
+import type {
+  CoolScrollbarProps,
+  ScrollTrackEventState,
+  ThumbDragState,
+} from "./scroller.types";
 import ScrollbarTrack from "./ScrollbarTrack";
 import ScrollbarThumb from "./ScrollbarThumb";
 import style from "./ReactCoolScrollbar.module.scss";
 
-const MINIMUM_THUMB_HEIGHT = 20;
-
-interface ThumbDragState {
-  initialThumbPosY?: number;
-  initialScrollTop?: number;
-  isDragging?: boolean;
-}
-
-interface ScrollTrackEventState {
-  isTrackHold?: boolean;
-  scrollIntervalState?: number;
-  scrollCurrent?: number;
-}
+const DEFAULT_MINIMUM_THUMB_HEIGHT = 20;
 
 const ReactCoolScrollbar = ({
   children,
@@ -31,7 +23,9 @@ const ReactCoolScrollbar = ({
   customScrollThumb,
   customScrollTrack,
   scrollBarVisibility = "onhover",
-  ...restProps
+  style,
+  minimumThumbHeight = DEFAULT_MINIMUM_THUMB_HEIGHT,
+  thumbHeight,
 }: CoolScrollbarProps) => {
   const scrollHostRef = useRef<HTMLDivElement>(null);
   const scrollerThumbRef = useRef<HTMLDivElement>(null);
@@ -41,7 +35,6 @@ const ReactCoolScrollbar = ({
 
   const trackEventState = useRef<ScrollTrackEventState>({ scrollCurrent: 0 });
 
-  const scrollerClassNames = [style.coolScrollbarContainer, className];
   const scrollTrackClassname = style.coolScrollbarTrack;
   const scrollbarThumbClassname = style.coolScrollbarThumb;
   let timer: number;
@@ -77,15 +70,17 @@ const ReactCoolScrollbar = ({
 
     const scrollElement = ref.current;
     const { clientHeight, scrollHeight } = scrollElement;
-    const thumbHeight = Math.max(
-      (clientHeight / scrollHeight) * clientHeight,
-      MINIMUM_THUMB_HEIGHT
-    );
+    const calculatedThumbHeight =
+      thumbHeight ??
+      Math.max(
+        (clientHeight / scrollHeight) * clientHeight,
+        minimumThumbHeight
+      );
 
-    scrollerThumbRef.current!.style.height = `${thumbHeight}px`;
+    scrollerThumbRef.current!.style.height = `${calculatedThumbHeight}px`;
 
     scrollBarContainerRef.current!.style.display =
-      thumbHeight >= scrollHeight ? "none" : "block";
+      calculatedThumbHeight >= scrollHeight ? "none" : "block";
   }
 
   function handlePageScroll(e: Event) {
@@ -255,7 +250,10 @@ const ReactCoolScrollbar = ({
   };
 
   return (
-    <div className={[style.coolscollerContainer].join(" ")}>
+    <div
+      className={[style.coolscollerContainer, className].join(" ")}
+      style={style}
+    >
       <div
         className={style.coolscrollerHost}
         ref={scrollHostRef}
@@ -265,9 +263,8 @@ const ReactCoolScrollbar = ({
       </div>
       <div
         ref={scrollBarContainerRef}
-        className={scrollerClassNames.join(" ")}
+        className={style.coolScrollbarContainer}
         style={{ width: scrollerWidth }}
-        {...restProps}
       >
         {!customScrollTrack ? (
           <ScrollbarTrack

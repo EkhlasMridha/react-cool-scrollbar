@@ -8,7 +8,11 @@ import type {
 type WithRef<T> = T & { ref: RefObject<HTMLElement> };
 type ScrollbarVisibilityType = "onscroll" | "always" | "onhover";
 
-export interface CoolScrollbarProps extends HtmlHTMLAttributes<HTMLDivElement> {
+export interface CoolScrollbarProps
+  extends Pick<
+    HtmlHTMLAttributes<HTMLDivElement>,
+    "className" | "style" | "children"
+  > {
   scrollerWidth?: number;
   customScrollTrack?:
     | ((props: WithRef<ScrollbarTrackProps>) => ReactElement)
@@ -18,6 +22,8 @@ export interface CoolScrollbarProps extends HtmlHTMLAttributes<HTMLDivElement> {
     | ReactElement;
   style?: any;
   scrollBarVisibility?: ScrollbarVisibilityType;
+  minimumThumbHeight?: number;
+  thumbHeight?: number;
 }
 
 export interface ScrollbarThumbProps
@@ -29,4 +35,16 @@ export interface ScrollbarTrackProps
   extends HtmlHTMLAttributes<HTMLDivElement> {
   handleMouseDown: (e: MouseEvent<HTMLDivElement>) => void;
   handleMouseUp: (e: MouseEvent<HTMLDivElement>) => void;
+}
+
+export interface ThumbDragState {
+  initialThumbPosY?: number;
+  initialScrollTop?: number;
+  isDragging?: boolean;
+}
+
+export interface ScrollTrackEventState {
+  isTrackHold?: boolean;
+  scrollIntervalState?: number;
+  scrollCurrent?: number;
 }
