@@ -20,10 +20,9 @@ export interface CoolScrollbarProps
   customScrollThumb?:
     | ((props: WithRef<ScrollbarThumbProps>) => ReactElement)
     | ReactElement;
-  style?: any;
   scrollBarVisibility?: ScrollbarVisibilityType;
-  minimumThumbHeight?: number;
-  thumbHeight?: number;
+  // minimumThumbHeight?: number;
+  // thumbHeight?: number;
 }
 
 export interface ScrollbarThumbProps

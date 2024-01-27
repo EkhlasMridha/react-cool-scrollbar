@@ -1,6 +1,7 @@
 .coolscollerContainer {
   position: relative;
   box-sizing: border-box;
+  overflow: auto;
 }
 
 .coolscollerContainer:has([aria-controls="onhover"]) {

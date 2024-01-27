@@ -12,7 +12,7 @@ import type {
 } from "./scroller.types";
 import ScrollbarTrack from "./ScrollbarTrack";
 import ScrollbarThumb from "./ScrollbarThumb";
-import style from "./ReactCoolScrollbar.module.scss";
+import coolStyle from "./ReactCoolScrollbar.module.scss";
 
 const DEFAULT_MINIMUM_THUMB_HEIGHT = 20;
 
@@ -24,9 +24,9 @@ const ReactCoolScrollbar = ({
   customScrollTrack,
   scrollBarVisibility = "onhover",
   style,
-  minimumThumbHeight = DEFAULT_MINIMUM_THUMB_HEIGHT,
-  thumbHeight,
-}: CoolScrollbarProps) => {
+}: // minimumThumbHeight = DEFAULT_MINIMUM_THUMB_HEIGHT,
+// thumbHeight,
+CoolScrollbarProps) => {
   const scrollHostRef = useRef<HTMLDivElement>(null);
   const scrollerThumbRef = useRef<HTMLDivElement>(null);
   const thumbDragState = useRef<ThumbDragState>({});
@@ -35,8 +35,8 @@ const ReactCoolScrollbar = ({
 
   const trackEventState = useRef<ScrollTrackEventState>({ scrollCurrent: 0 });
 
-  const scrollTrackClassname = style.coolScrollbarTrack;
-  const scrollbarThumbClassname = style.coolScrollbarThumb;
+  const scrollTrackClassname = coolStyle.coolScrollbarTrack;
+  const scrollbarThumbClassname = coolStyle.coolScrollbarThumb;
   let timer: number;
 
   useEffect(() => {
@@ -70,12 +70,10 @@ const ReactCoolScrollbar = ({
 
     const scrollElement = ref.current;
     const { clientHeight, scrollHeight } = scrollElement;
-    const calculatedThumbHeight =
-      thumbHeight ??
-      Math.max(
-        (clientHeight / scrollHeight) * clientHeight,
-        minimumThumbHeight
-      );
+    const calculatedThumbHeight = Math.max(
+      (clientHeight / scrollHeight) * clientHeight,
+      DEFAULT_MINIMUM_THUMB_HEIGHT
+    );
 
     scrollerThumbRef.current!.style.height = `${calculatedThumbHeight}px`;
 
@@ -251,11 +249,11 @@ const ReactCoolScrollbar = ({
 
   return (
     <div
-      className={[style.coolscollerContainer, className].join(" ")}
+      className={[coolStyle.coolscollerContainer, className].join(" ")}
       style={style}
     >
       <div
-        className={style.coolscrollerHost}
+        className={coolStyle.coolscrollerHost}
         ref={scrollHostRef}
         aria-controls={scrollBarVisibility}
       >
@@ -263,7 +261,7 @@ const ReactCoolScrollbar = ({
       </div>
       <div
         ref={scrollBarContainerRef}
-        className={style.coolScrollbarContainer}
+        className={coolStyle.coolScrollbarContainer}
         style={{ width: scrollerWidth }}
       >
         {!customScrollTrack ? (
