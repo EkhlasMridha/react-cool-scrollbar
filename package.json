@@ -1,7 +1,7 @@
 {
   "name": "react-cool-scrollbar",
   "private": false,
-  "version": "1.3.8",
+  "version": "1.4.0",
   "type": "module",
   "files": [
     "dist",
@@ -48,16 +48,18 @@
     "url": "https://github.com/EkhlasMridha/react-cool-scrollbar"
   },
   "keywords": [
+    "scroller",
     "scrollbar",
     "custom scrollbar",
     "react scrollbar",
     "react",
     "smooth",
     "cool",
-    "component",
-    "customizable",
+    "cool scrollbar",
+    "custom",
     "pretty scrollbar"
   ],
+  "description": "Custom scroollbar for react applications. It's easy to use with scrolling experience.",
   "author": "ekhlas mridha shimul",
   "bugs": {
     "url": "https://github.com/EkhlasMridha/react-cool-scrollbar/issues"
