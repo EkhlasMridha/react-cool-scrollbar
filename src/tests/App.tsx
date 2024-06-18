@@ -1,10 +1,20 @@
 import "./App.css";
 import { ReactCoolScrollbar } from "../packages";
+import { useRef } from "react";
 
 function App() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const onScrollTop = () => {
+    scrollRef.current?.scrollTo({
+      behavior: "smooth",
+      top: 0,
+    });
+  };
+
   return (
     <div className="app">
-      <ReactCoolScrollbar scrollBarVisibility="onscroll">
+      <ReactCoolScrollbar scrollBarVisibility="onscroll" ref={scrollRef}>
         <div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu
@@ -206,6 +216,7 @@ function App() {
             semper est eget rhoncus. Sed interdum venenatis metus, id pretium
             ipsum molestie
           </p>
+          <button onClick={onScrollTop}>Scroll top</button>
         </div>
       </ReactCoolScrollbar>
     </div>
