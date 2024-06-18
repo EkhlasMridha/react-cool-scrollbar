@@ -47,3 +47,9 @@ export interface ScrollTrackEventState {
   scrollIntervalState?: number;
   scrollCurrent?: number;
 }
+
+export interface GetScrollAmountParams {
+  e: MouseEvent<HTMLDivElement>;
+  thumbHeight?: number;
+  pageScrollLength?: number;
+}
