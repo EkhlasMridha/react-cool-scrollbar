@@ -60,6 +60,7 @@ Make the style property of the parent as `display:flex`. This will work in most 
 
 ## Props
 
+- `ref`: A ref object can be passed to the component which will point to the scroller view of the page which is a `div` element. This can be used to programatically scroll the view or anything needed as per the the requirements.
 - `scrollBarVisibility`: This prop can receive 3 types of conditions to make the scrollbar visible on the UI.
 
   - `always`: Scrollbar will be always visible.
