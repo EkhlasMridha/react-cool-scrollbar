@@ -4,6 +4,8 @@ import {
   useEffect,
   useRef,
   cloneElement,
+  useCallback,
+  type ReactElement,
 } from "react";
 import type {
   CoolScrollbarProps,
@@ -37,12 +39,12 @@ CoolScrollbarProps) => {
 
   const scrollTrackClassname = coolStyle.coolScrollbarTrack;
   const scrollbarThumbClassname = coolStyle.coolScrollbarThumb;
-  let timer: number;
+  let timer = 0;
 
   useEffect(() => {
     if (!scrollHostRef.current) return;
 
-    let resizeObserver = new ResizeObserver(() => {
+    const resizeObserver = new ResizeObserver(() => {
       handleScrollerSize(scrollHostRef);
     });
     resizeObserver.observe(scrollHostRef.current);
@@ -51,13 +53,13 @@ CoolScrollbarProps) => {
     scrollHostRef.current.addEventListener("scroll", handlePageScroll, true);
 
     return () => {
-      if (!scrollHostRef.current) return;
       unSubscribeEventListeners(resizeObserver);
     };
   }, [children]);
 
   function unSubscribeEventListeners(resizeObserver: ResizeObserver) {
-    resizeObserver?.unobserve(scrollHostRef.current!);
+    if (!scrollHostRef.current) return;
+    resizeObserver?.unobserve(scrollHostRef.current);
     scrollHostRef.current?.removeEventListener(
       "scroll",
       handlePageScroll,
@@ -66,7 +68,12 @@ CoolScrollbarProps) => {
   }
 
   function handleScrollerSize(ref: RefObject<HTMLDivElement>) {
-    if (!ref.current || !scrollerThumbRef.current) return;
+    if (
+      !ref.current ||
+      !scrollerThumbRef.current ||
+      !scrollBarContainerRef.current
+    )
+      return;
 
     const scrollElement = ref.current;
     const { clientHeight, scrollHeight } = scrollElement;
@@ -75,16 +82,16 @@ CoolScrollbarProps) => {
       DEFAULT_MINIMUM_THUMB_HEIGHT
     );
 
-    scrollerThumbRef.current!.style.height = `${calculatedThumbHeight}px`;
+    scrollerThumbRef.current.style.height = `${calculatedThumbHeight}px`;
 
-    scrollBarContainerRef.current!.style.display =
+    scrollBarContainerRef.current.style.display =
       calculatedThumbHeight >= scrollHeight ? "none" : "block";
   }
 
   function handlePageScroll(e: Event) {
     if (!scrollerThumbRef.current) return;
 
-    let hostElement = e.target as HTMLDivElement | null;
+    const hostElement = e.target as HTMLDivElement;
     if (!hostElement?.contains(scrollHostRef.current)) return;
 
     const thumbHeight = scrollerThumbRef.current?.clientHeight;
@@ -98,50 +105,50 @@ CoolScrollbarProps) => {
       }, 1500);
     }
 
-    const { scrollTop, scrollHeight, offsetHeight } = hostElement!;
+    const { scrollTop, scrollHeight, offsetHeight } = hostElement;
     let newTop = (scrollTop / scrollHeight) * offsetHeight;
     newTop = Math.min(newTop, offsetHeight - thumbHeight);
 
-    scrollerThumbRef.current!.style.top = `${newTop ?? 0}px`;
-
-    hostElement = null;
+    scrollerThumbRef.current.style.top = `${newTop ?? 0}px`;
   }
 
   const handleMouseDownOnScrollThumb = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     e.preventDefault();
 
-    thumbDragState.current!.initialThumbPosY = e.clientY;
+    thumbDragState.current.initialThumbPosY = e.clientY;
     if (scrollHostRef.current) {
-      thumbDragState.current!.initialScrollTop =
-        scrollHostRef.current.scrollTop;
+      thumbDragState.current.initialScrollTop = scrollHostRef.current.scrollTop;
     }
-    thumbDragState.current!.isDragging = true;
+    thumbDragState.current.isDragging = true;
 
     scrollBarContainerRef.current?.setAttribute("area-active", "true");
   };
 
-  function handleThumbMouseUp(e: globalThis.MouseEvent) {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleThumbMouseUp = useCallback(
+    (e: globalThis.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    scrollBarContainerRef.current?.setAttribute("area-active", "false");
+      scrollBarContainerRef.current?.setAttribute("area-active", "false");
 
-    if (scrollBarVisibility === "onscroll") {
-      clearTimeout(timer);
-      scrollHostRef.current?.setAttribute("aria-controls", "onscroll");
-    }
+      if (scrollBarVisibility === "onscroll") {
+        clearTimeout(timer);
+        scrollHostRef.current?.setAttribute("aria-controls", "onscroll");
+      }
 
-    if (thumbDragState.current?.isDragging)
-      thumbDragState.current.isDragging = false;
-  }
+      if (thumbDragState.current?.isDragging)
+        thumbDragState.current.isDragging = false;
+    },
+    [scrollBarVisibility, timer]
+  );
 
-  const handleThumbMouseMove = (e: globalThis.MouseEvent) => {
+  const handleThumbMouseMove = useCallback((e: globalThis.MouseEvent) => {
     if (thumbDragState.current?.isDragging) {
       e.preventDefault();
       e.stopPropagation();
 
-      const scrollHostElement = scrollHostRef.current!;
+      const scrollHostElement = scrollHostRef.current as HTMLDivElement;
       const { scrollHeight, offsetHeight } = scrollHostElement;
 
       const deltaY =
@@ -149,13 +156,13 @@ CoolScrollbarProps) => {
         (offsetHeight / (scrollerThumbRef.current?.clientHeight ?? 1));
 
       const newScrollTop = Math.min(
-        (thumbDragState.current!.initialScrollTop ?? 0) + deltaY,
+        (thumbDragState.current.initialScrollTop ?? 0) + deltaY,
         scrollHeight - offsetHeight
       );
 
       scrollHostElement.scrollTop = newScrollTop;
     }
-  };
+  }, []);
 
   useEffect(() => {
     document.addEventListener("mousemove", handleThumbMouseMove);
@@ -172,7 +179,7 @@ CoolScrollbarProps) => {
     e.stopPropagation();
     e.preventDefault();
 
-    trackEventState.current!.isTrackHold = true;
+    trackEventState.current.isTrackHold = true;
 
     const scrollAmount = getScrollAmount(e) ?? 0;
 
@@ -186,7 +193,7 @@ CoolScrollbarProps) => {
     e.stopPropagation();
     e.preventDefault();
 
-    trackEventState.current!.isTrackHold = false;
+    trackEventState.current.isTrackHold = false;
 
     clearInterval(trackEventState.current?.scrollIntervalState);
   }
@@ -199,7 +206,7 @@ CoolScrollbarProps) => {
     )
       return;
 
-    let scrollTrack = e.target as HTMLElement;
+    const scrollTrack = e.target as HTMLElement;
 
     const { clientY } = e;
     const rect = scrollTrack?.getBoundingClientRect();
@@ -224,7 +231,7 @@ CoolScrollbarProps) => {
           handleMouseUp,
           className: scrollTrackClassname,
         })
-      : cloneElement(customScrollTrack!, {
+      : cloneElement(customScrollTrack as ReactElement, {
           ref: scrollTrackRef,
           handleMouseDown: handleMouseDown,
           handleMouseUp,
@@ -239,7 +246,7 @@ CoolScrollbarProps) => {
           handleMouseDown: handleMouseDownOnScrollThumb,
           className: scrollbarThumbClassname,
         })
-      : cloneElement(customScrollThumb!, {
+      : cloneElement(customScrollThumb as ReactElement, {
           ref: scrollerThumbRef,
           handleMouseDown: handleMouseDownOnScrollThumb,
           handleMouseUp,
