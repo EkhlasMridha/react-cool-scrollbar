@@ -1,7 +1,7 @@
 {
   "name": "react-cool-scrollbar",
   "private": false,
-  "version": "1.4.0",
+  "version": "1.4.2",
   "type": "module",
   "files": [
     "dist",
@@ -45,7 +45,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/EkhlasMridha/react-cool-scrollbar"
+    "url": "git+https://github.com/EkhlasMridha/react-cool-scrollbar.git"
   },
   "keywords": [
     "scroller",
